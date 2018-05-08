@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<title>Rate My Text Message</title>
+<body>
+
+<form id="form1">
+  Text Message: <input id="text" ><br>
+  <!-- <input type="submit" onclick='myFunction()' value="Submit"> -->
+  <button  onclick="myFunction(); return false;" >Submit</button>
+</form>
+
+<p id="response">what</p>
+
+<script>
+var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+function myFunction() {
+	try {
+	    var x = document.getElementById("text");    
+	    var text = x.value;
+
+	    // document.getElementById("demo").innerHTML = text;
+
+		
+
+		var toneAnalyzerV3 = new ToneAnalyzerV3({
+		  version: '2017-09-21',
+		  username: '{304d36bd-7e6c-4a0b-bed0-bfa18cfb89ac}',
+		  password: '{oW00jVhpsRTJ}'
+		});
+
+		// var text = 'I love you all so much! You are my favorite people.'
+
+		var params = {
+		  'tone_input': { 'text': text },
+		  'content_type': 'application/json'
+		};
+
+		toneAnalyzerV3.tone(params, function (error, response) {
+		  if (error) {
+		  	console.log('error:', error);
+		  }
+		  else {
+		  	var gotit = JSON.stringify(response, null, 2)
+		    console.log(JSON.stringify(response, null, 2));
+		  }
+		  	
+		  }
+		); 0;
+		console.log('got past')
+
+		document.getElementById("response").innerHTML = gotit;
+		}
+	
+	catch(err) {
+    	console.log(err.message);
+	}
+
+}
+
+</script>
+
+</body>
+</html>
